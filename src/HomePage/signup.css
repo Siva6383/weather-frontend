@@ -1,0 +1,23 @@
+.signup-fullcard {
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0;
+  overflow: hidden;
+  border: none;
+}
+
+.signup-left {
+  background-image: url("https://images.unsplash.com/photo-1541701494587-cb58502866ab");
+  background-size: cover;
+  background-position: center;
+}
+
+.signup-form {
+  width: 100%;
+  max-width: 380px;
+}
+
+.signup-fullcard {
+  will-change: transform;
+}
+    
