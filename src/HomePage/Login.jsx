@@ -13,25 +13,25 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleLogin = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    const res = await API.post("/login", {
-      email,
-      password
-    });
+    try {
+      const res = await API.post("/login", {
+        email,
+        password
+      });
 
-    alert(res.data.message);
+      alert(res.data.message);
 
-    // Redirect to weather app with username
-    navigate("/weather", {
-      state: { username: res.data.user.username }
-    });
+      // Redirect to weather app with username
+      navigate("/weather", {
+        state: { username: res.data.user.username }
+      });
 
-  } catch (err) {
-    alert(err.response.data.message);
-  }
-};
+    } catch (err) {
+      alert(err.response?.data?.message || "Server not reachable");
+    }
+  };
 
   return (
     <motion.div
@@ -75,7 +75,7 @@ function Login() {
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   value={password}
-                  onChange={(e)=>setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </Form.Group>

@@ -29,7 +29,7 @@ function Signup() {
             navigate("/"); // go to login
 
         } catch (err) {
-            alert(err.response.data.message);
+            alert(err.response?.data?.message || "Server not reachable");
         }
     };
 
@@ -63,7 +63,7 @@ function Signup() {
 
                             <h2 className="text-center mb-4">Sign Up</h2>
 
-                            <Form onSubmit = {handleSignup}>
+                            <Form onSubmit={handleSignup}>
                                 {/* Username */}
                                 <Form.Group className="mb-3">
                                     <Form.Control type="text" placeholder="User Name" value={username} onChange={(e) => setUsername(e.target.value)} required />
@@ -71,7 +71,7 @@ function Signup() {
 
                                 {/* Email */}
                                 <Form.Group className="mb-3">
-                                    <Form.Control type="email" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} required/>
+                                    <Form.Control type="email" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} required />
                                 </Form.Group>
 
                                 {/* Password */}
