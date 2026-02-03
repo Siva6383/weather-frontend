@@ -48,3 +48,10 @@
   border-radius: 12px;
   width: 300px;
 }
+
+@media (max-width: 480px) {
+  .d-flex {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+}
