@@ -24,10 +24,11 @@ function Login() {
     setSuccessMsg("");
 
     try {
-      const res = await API.post("/login", {
-        email,
-        password
-      });
+      const res = await API.post(
+        "/login",
+        { email, password },
+        { headers: { "Content-Type": "application/json" } }
+      );
 
       setSuccessMsg("Login successful! Redirecting...");
 
@@ -91,7 +92,8 @@ function Login() {
                 />
               </Form.Group>
 
-              <div className="text-end mb-3">
+              <div className="d-flex justify-content-between align-items-center mb-3">
+
                 <small
                   className="text-primary"
                   style={{ cursor: "pointer" }}
@@ -99,15 +101,14 @@ function Login() {
                 >
                   Forgot Password?
                 </small>
-              </div>
 
-              <Form.Group className="mb-3">
                 <Form.Check
                   type="checkbox"
                   label="Show Password"
                   onChange={() => setShowPassword(!showPassword)}
                 />
-              </Form.Group>
+
+              </div>
 
               {successMsg && (
                 <div className="text-success text-center fw-semibold mb-2">
@@ -171,10 +172,11 @@ function Login() {
                 onClick={async () => {
                   setResetLoading(true);
                   try {
-                    const res = await API.post("/reset-password", {
-                      email: resetEmail,
-                      newPassword
-                    });
+                    const res = await API.post(
+                      "/reset-password",
+                      { email: resetEmail, newPassword },
+                      { headers: { "Content-Type": "application/json" } }
+                    );
 
                     alert(res.data.message);
                     setShowReset(false);
