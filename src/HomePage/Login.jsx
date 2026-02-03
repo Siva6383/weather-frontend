@@ -13,6 +13,10 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
+  const [showReset, setShowReset] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [resetLoading, setResetLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -87,6 +91,16 @@ function Login() {
                 />
               </Form.Group>
 
+              <div className="text-end mb-3">
+                <small
+                  className="text-primary"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setShowReset(true)}
+                >
+                  Forgot Password?
+                </small>
+              </div>
+
               <Form.Group className="mb-3">
                 <Form.Check
                   type="checkbox"
@@ -128,6 +142,56 @@ function Login() {
           </Col>
 
         </Row>
+
+        {showReset && (
+          <div className="reset-overlay">
+            <div className="reset-box">
+
+              <h5 className="mb-3">Reset Password</h5>
+
+              <Form.Control
+                type="email"
+                placeholder="Enter your email"
+                className="mb-2"
+                value={resetEmail}
+                onChange={(e) => setResetEmail(e.target.value)}
+              />
+
+              <Form.Control
+                type="password"
+                placeholder="New password"
+                className="mb-3"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+              />
+
+              <Button
+                className="w-100"
+                disabled={resetLoading}
+                onClick={async () => {
+                  setResetLoading(true);
+                  try {
+                    const res = await API.post("/reset-password", {
+                      email: resetEmail,
+                      newPassword
+                    });
+
+                    alert(res.data.message);
+                    setShowReset(false);
+                  } catch (err) {
+                    alert(err.response?.data?.message || "Server error");
+                  } finally {
+                    setResetLoading(false);
+                  }
+                }}
+              >
+                {resetLoading ? "Updating..." : "Update Password"}
+              </Button>
+
+            </div>
+          </div>
+        )}
+
       </Card>
     </motion.div>
   );

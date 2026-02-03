@@ -44,119 +44,85 @@ function Signup() {
 
     return (
         <motion.div
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            variants={{
-                hidden: { x: 300, opacity: 0 },
-                visible: { x: 0, opacity: 1 },
-                exit: { x: -300, opacity: 0 }
-            }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6 }}
+            className="signup-bg"
         >
-            <Card className="signup-fullcard">
-                <Row className="g-0 h-100">
+            <div className="signup-glass">
 
-                    {/* Left Image Panel */}
-                    <Col
-                        md={6}
-                        className="signup-left d-flex flex-column justify-content-center align-items-center text-center p-5 text-white"
-                    >
-                        <img
-                            src="./public/signup.jpg"
-                            alt="signup visual"
-                            loading="lazy"
-                            className="signup-img"
+                <h2 className="text-center mb-4 text-white">Create Account</h2>
+
+                <Form onSubmit={handleSignup}>
+
+                    <Form.Group className="mb-3">
+                        <Form.Control
+                            type="text"
+                            placeholder="User Name"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
                         />
-                        <h1 className="fw-bold">Create your Account</h1>
-                        <p className="fs-5">Share your artwork and get projects!</p>
-                    </Col>
+                    </Form.Group>
 
-                    {/* Right Form Panel */}
-                    <Col md={6} className="d-flex align-items-center justify-content-center p-4">
-                        <div className="signup-form">
+                    <Form.Group className="mb-3">
+                        <Form.Control
+                            type="email"
+                            placeholder="Email Address"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </Form.Group>
 
-                            <h2 className="text-center mb-4">Sign Up</h2>
+                    <Form.Group className="mb-3">
+                        <Form.Control
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </Form.Group>
 
-                            <Form onSubmit={handleSignup}>
-                                {/* Username */}
-                                <Form.Group className="mb-3">
-                                    <Form.Control type="text" placeholder="User Name" value={username} onChange={(e) => setUsername(e.target.value)} required />
-                                </Form.Group>
+                    <Form.Group className="mb-3">
+                        <Form.Check
+                            className="text-white"
+                            type="checkbox"
+                            label="Show Password"
+                            onChange={() => setShowPassword(!showPassword)}
+                        />
+                    </Form.Group>
 
-                                {/* Email */}
-                                <Form.Group className="mb-3">
-                                    <Form.Control type="email" placeholder="Email Address" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                                </Form.Group>
-
-                                {/* Password */}
-                                <Form.Group className="mb-3">
-                                    <Form.Control
-                                        type={showPassword ? "text" : "password"}
-                                        placeholder="Password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        required
-                                    />
-                                </Form.Group>
-
-                                {/* Confirm Password */}
-                                <Form.Group className="mb-3">
-                                    <Form.Control
-                                        type={showPassword ? "text" : "password"}
-                                        placeholder="Confirm Password"
-                                    />
-                                </Form.Group>
-
-                                {/* Show Password */}
-                                <Form.Group className="mb-3">
-                                    <Form.Check
-                                        type="checkbox"
-                                        label="Show Password"
-                                        onChange={() => setShowPassword(!showPassword)}
-                                    />
-                                </Form.Group>
-
-                                {successMsg && (
-                                    <div className="text-success text-center fw-semibold mb-2">
-                                        {successMsg}
-                                    </div>
-                                )}
-
-                                {/* Button */}
-                                <Button
-                                    variant="dark"
-                                    type="submit"
-                                    className="w-100 mb-3"
-                                    disabled={loading}
-                                >
-                                    {loading ? (
-                                        <>
-                                            <span className="spinner-border spinner-border-sm me-2"></span>
-                                            Creating account...
-                                        </>
-                                    ) : (
-                                        "Join us →"
-                                    )}
-                                </Button>
-
-                                {/* Login Link */}
-                                <div className="text-center">
-                                    <small>
-                                        Already have an account?{" "}
-                                        <Link to="/" className="fw-semibold text-decoration-none">
-                                            Login
-                                        </Link>
-                                    </small>
-                                </div>
-
-                            </Form>
+                    {successMsg && (
+                        <div className="text-success text-center mb-2 fw-semibold">
+                            {successMsg}
                         </div>
-                    </Col>
+                    )}
 
-                </Row>
-            </Card>
+                    <Button className="w-100" disabled={loading}>
+                        {loading ? (
+                            <>
+                                <span className="spinner-border spinner-border-sm me-2"></span>
+                                Creating account...
+                            </>
+                        ) : (
+                            "Create Account"
+                        )}
+                    </Button>
+
+                    <div className="text-center mt-3 text-white">
+                        Already have account?{" "}
+                        <Link to="/" className="text-info text-decoration-none">
+                            Login
+                        </Link>
+                    </div>
+
+                </Form>
+            </div>
         </motion.div>
+
     );
 }
 

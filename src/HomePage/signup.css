@@ -6,10 +6,31 @@
   border: none;
 }
 
+.signup-bg {
+  width: 100vw;
+  height: 100vh;
+  background: url("/img21.jpg") center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-glass {
+  width: 100%;
+  max-width: 380px;
+  padding: 35px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+}
+
+
 .signup-left {
-  background-image: url("https://images.unsplash.com/photo-1541701494587-cb58502866ab");
-  background-size: cover;
-  background-position: center;
+  height: 100%;
+  min-height: 100vh;
+  padding: 0 !important;
+  display: flex;
 }
 
 .signup-form {
@@ -26,8 +47,7 @@
   height: 100%;
   object-fit: cover;
   animation: fadeImg 0.6s ease-in;
-  filter: blur(6px);
-  transition: filter 0.6s ease;
+  display: block;
 }
 
 
