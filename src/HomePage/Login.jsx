@@ -11,9 +11,13 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [successMsg, setSuccessMsg] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setSuccessMsg("");
 
     try {
       const res = await API.post("/login", {
@@ -21,15 +25,18 @@ function Login() {
         password
       });
 
-      alert(res.data.message);
+      setSuccessMsg("Login successful! Redirecting...");
 
-      // Redirect to weather app with username
-      navigate("/weather", {
-        state: { username: res.data.user.username }
-      });
+      setTimeout(() => {
+        navigate("/weather", {
+          state: { username: res.data.user.username }
+        });
+      }, 1000);
 
     } catch (err) {
       alert(err.response?.data?.message || "Server not reachable");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -88,8 +95,25 @@ function Login() {
                 />
               </Form.Group>
 
-              <Button type="submit" className="login-btn w-100 mb-3">
-                SIGN IN
+              {successMsg && (
+                <div className="text-success text-center fw-semibold mb-2">
+                  {successMsg}
+                </div>
+              )}
+
+              <Button
+                type="submit"
+                className="login-btn w-100 mb-3"
+                disabled={loading}
+              >
+                {loading ? (
+                  <>
+                    <span className="spinner-border spinner-border-sm me-2"></span>
+                    Signing in...
+                  </>
+                ) : (
+                  "SIGN IN"
+                )}
               </Button>
 
               <div className="text-center">

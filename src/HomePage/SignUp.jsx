@@ -12,11 +12,15 @@ function Signup() {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [successMsg, setSuccessMsg] = useState("");
 
     const navigate = useNavigate();
 
     const handleSignup = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setSuccessMsg("");
 
         try {
             const res = await API.post("/signup", {
@@ -25,11 +29,16 @@ function Signup() {
                 password
             });
 
-            alert(res.data.message);
-            navigate("/"); // go to login
+            setSuccessMsg("Signup successful! Redirecting to login...");
+
+            setTimeout(() => {
+                navigate("/");
+            }, 1200);
 
         } catch (err) {
             alert(err.response?.data?.message || "Server not reachable");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -53,6 +62,12 @@ function Signup() {
                         md={6}
                         className="signup-left d-flex flex-column justify-content-center align-items-center text-center p-5 text-white"
                     >
+                        <img
+                            src="./public/signup.jpg"
+                            alt="signup visual"
+                            loading="lazy"
+                            className="signup-img"
+                        />
                         <h1 className="fw-bold">Create your Account</h1>
                         <p className="fs-5">Share your artwork and get projects!</p>
                     </Col>
@@ -102,9 +117,27 @@ function Signup() {
                                     />
                                 </Form.Group>
 
+                                {successMsg && (
+                                    <div className="text-success text-center fw-semibold mb-2">
+                                        {successMsg}
+                                    </div>
+                                )}
+
                                 {/* Button */}
-                                <Button variant="dark" type="submit" className="w-100 mb-3">
-                                    Join us →
+                                <Button
+                                    variant="dark"
+                                    type="submit"
+                                    className="w-100 mb-3"
+                                    disabled={loading}
+                                >
+                                    {loading ? (
+                                        <>
+                                            <span className="spinner-border spinner-border-sm me-2"></span>
+                                            Creating account...
+                                        </>
+                                    ) : (
+                                        "Join us →"
+                                    )}
                                 </Button>
 
                                 {/* Login Link */}
