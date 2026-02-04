@@ -174,17 +174,15 @@ function Login() {
                   setResetLoading(true);
 
                   try {
-                    const res = await API.post(
-                      `/reset-password/${window.location.pathname.split("/").pop()}`,
-                      { password: newPassword }
-                    );
+                    const res = await API.post("/forgot-password", {
+                      email: resetEmail
+                    });
 
                     alert(res.data.message);
                     setShowReset(false);
 
                   } catch (err) {
-                    console.log(err);
-                    alert(err.response?.data?.message || "Reset failed");
+                    alert(err.response?.data?.message || "Failed to send email");
                   } finally {
                     setResetLoading(false);
                   }
