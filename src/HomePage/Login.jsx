@@ -172,18 +172,17 @@ function Login() {
                 onClick={async () => {
                   setResetLoading(true);
                   try {
-                    const res = await API.post(
-                      "/reset-password",
-                      { email: resetEmail, newPassword },
+                    await API.post(
+                      "/forgot-password",
+                      { email: resetEmail },
                       { headers: { "Content-Type": "application/json" } }
                     );
 
-                    alert(res.data.message);
+                    alert("Reset link sent to your email 📧");
                     setShowReset(false);
+
                   } catch (err) {
                     alert(err.response?.data?.message || "Server error");
-                  } finally {
-                    setResetLoading(false);
                   }
                 }}
               >
