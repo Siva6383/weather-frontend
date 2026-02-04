@@ -169,23 +169,28 @@ function Login() {
               <Button
                 className="w-100"
                 disabled={resetLoading}
-                onClick={async () => {
+                onClick={async (e) => {
+                  e.preventDefault();
                   setResetLoading(true);
+
                   try {
-                    await API.post(
-                      "/forgot-password",
-                      { email: resetEmail },
-                      { headers: { "Content-Type": "application/json" } }
+                    const res = await API.post(
+                      `/reset-password/${window.location.pathname.split("/").pop()}`,
+                      { password: newPassword }
                     );
 
-                    alert("Reset link sent to your email 📧");
+                    alert(res.data.message);
                     setShowReset(false);
 
                   } catch (err) {
-                    alert(err.response?.data?.message || "Server error");
+                    console.log(err);
+                    alert(err.response?.data?.message || "Reset failed");
+                  } finally {
+                    setResetLoading(false);
                   }
                 }}
               >
+
                 {resetLoading ? "Updating..." : "Update Password"}
               </Button>
 
