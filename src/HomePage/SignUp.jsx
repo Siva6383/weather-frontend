@@ -101,7 +101,7 @@ function Signup() {
                         </div>
                     )}
 
-                    <Button className="w-100" disabled={loading}>
+                    <Button type="submit" className="w-100" disabled={loading}>
                         {loading ? (
                             <>
                                 <span className="spinner-border spinner-border-sm me-2"></span>
