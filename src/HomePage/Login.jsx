@@ -148,22 +148,19 @@ function Login() {
           <div className="reset-overlay">
             <div className="reset-box">
 
-              <h5 className="mb-3">Reset Password</h5>
+              <h5 className="mb-2 text-center">Reset Password</h5>
+
+              <p className="text-muted text-center mb-3" style={{ fontSize: "14px" }}>
+                A reset link will be sent to your email address
+              </p>
 
               <Form.Control
                 type="email"
                 placeholder="Enter your email"
-                className="mb-2"
+                className="mb-3"
                 value={resetEmail}
                 onChange={(e) => setResetEmail(e.target.value)}
-              />
-
-              <Form.Control
-                type="password"
-                placeholder="New password"
-                className="mb-3"
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
+                required
               />
 
               <Button
@@ -182,19 +179,19 @@ function Login() {
                     setShowReset(false);
 
                   } catch (err) {
-                    alert(err.response?.data?.message || "Failed to send email");
+                    alert(err.response?.data?.message || "Failed to send reset link");
                   } finally {
                     setResetLoading(false);
                   }
                 }}
               >
-
-                {resetLoading ? "Updating..." : "Update Password"}
+                {resetLoading ? "Sending..." : "Send Link"}
               </Button>
 
             </div>
           </div>
         )}
+
 
       </Card>
     </motion.div>
