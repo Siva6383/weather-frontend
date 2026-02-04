@@ -53,7 +53,7 @@ function ResetPassword() {
             <div className="text-center text-success mb-2">{msg}</div>
           )}
 
-          <Button className="w-100" disabled={loading}>
+          <Button type="submit" className="w-100" disabled={loading}>
             {loading ? "Updating..." : "Update Password"}
           </Button>
         </Form>
