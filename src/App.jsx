@@ -3,6 +3,7 @@ import { AnimatePresence } from "framer-motion";
 import Login from "./HomePage/Login";
 import Signup from "./HomePage/SignUp";
 import WeatherApp from "./MainPage/WeatherApp";
+import ResetPassword from "./HomePage/ResetPassword";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -13,6 +14,7 @@ function AnimatedRoutes() {
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/weather" element={<WeatherApp />} />
+        <Route path="/reset/:token" element={<ResetPassword />} />
       </Routes>
     </AnimatePresence>
   );
